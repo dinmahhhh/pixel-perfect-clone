@@ -14,16 +14,433 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      business_members: {
+        Row: {
+          business_id: string
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["business_role"]
+          user_id: string
+        }
+        Insert: {
+          business_id: string
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["business_role"]
+          user_id: string
+        }
+        Update: {
+          business_id?: string
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["business_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_members_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      businesses: {
+        Row: {
+          created_at: string
+          currency: string
+          id: string
+          industry: string | null
+          name: string
+          owner_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          currency?: string
+          id?: string
+          industry?: string | null
+          name: string
+          owner_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          currency?: string
+          id?: string
+          industry?: string | null
+          name?: string
+          owner_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      datasets: {
+        Row: {
+          business_id: string
+          column_mapping: Json
+          created_at: string
+          file_name: string
+          file_size: number
+          file_type: string | null
+          has_cost_data: boolean
+          id: string
+          imported_row_count: number
+          is_current: boolean
+          period_end: string | null
+          period_start: string | null
+          row_count: number
+          status: string
+          uploaded_by: string
+          validation_report: Json
+        }
+        Insert: {
+          business_id: string
+          column_mapping?: Json
+          created_at?: string
+          file_name: string
+          file_size?: number
+          file_type?: string | null
+          has_cost_data?: boolean
+          id?: string
+          imported_row_count?: number
+          is_current?: boolean
+          period_end?: string | null
+          period_start?: string | null
+          row_count?: number
+          status?: string
+          uploaded_by: string
+          validation_report?: Json
+        }
+        Update: {
+          business_id?: string
+          column_mapping?: Json
+          created_at?: string
+          file_name?: string
+          file_size?: number
+          file_type?: string | null
+          has_cost_data?: boolean
+          id?: string
+          imported_row_count?: number
+          is_current?: boolean
+          period_end?: string | null
+          period_start?: string | null
+          row_count?: number
+          status?: string
+          uploaded_by?: string
+          validation_report?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "datasets_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insights: {
+        Row: {
+          body: string | null
+          business_id: string
+          created_at: string
+          dataset_id: string | null
+          id: string
+          kind: string
+          payload: Json
+          severity: string
+          title: string
+        }
+        Insert: {
+          body?: string | null
+          business_id: string
+          created_at?: string
+          dataset_id?: string | null
+          id?: string
+          kind?: string
+          payload?: Json
+          severity?: string
+          title: string
+        }
+        Update: {
+          body?: string | null
+          business_id?: string
+          created_at?: string
+          dataset_id?: string | null
+          id?: string
+          kind?: string
+          payload?: Json
+          severity?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insights_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "insights_dataset_id_fkey"
+            columns: ["dataset_id"]
+            isOneToOne: false
+            referencedRelation: "datasets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      metrics_cache: {
+        Row: {
+          business_id: string
+          computed_at: string
+          dataset_id: string | null
+          id: string
+          metric_key: string
+          period: string | null
+          value: Json
+        }
+        Insert: {
+          business_id: string
+          computed_at?: string
+          dataset_id?: string | null
+          id?: string
+          metric_key: string
+          period?: string | null
+          value?: Json
+        }
+        Update: {
+          business_id?: string
+          computed_at?: string
+          dataset_id?: string | null
+          id?: string
+          metric_key?: string
+          period?: string | null
+          value?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "metrics_cache_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "metrics_cache_dataset_id_fkey"
+            columns: ["dataset_id"]
+            isOneToOne: false
+            referencedRelation: "datasets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          business_id: string
+          content: Json
+          created_at: string
+          created_by: string | null
+          id: string
+          kind: string
+          period_end: string | null
+          period_start: string | null
+          title: string
+        }
+        Insert: {
+          business_id: string
+          content?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind?: string
+          period_end?: string | null
+          period_start?: string | null
+          title: string
+        }
+        Update: {
+          business_id?: string
+          content?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind?: string
+          period_end?: string | null
+          period_start?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subscriptions: {
+        Row: {
+          business_id: string
+          created_at: string
+          current_period_end: string | null
+          id: string
+          plan: string
+          status: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          business_id: string
+          created_at?: string
+          current_period_end?: string | null
+          id?: string
+          plan?: string
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          business_id?: string
+          created_at?: string
+          current_period_end?: string | null
+          id?: string
+          plan?: string
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: true
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      transactions: {
+        Row: {
+          business_id: string
+          category: string | null
+          cost_price: number | null
+          created_at: string
+          customer: string | null
+          dataset_id: string
+          id: string
+          location: string | null
+          occurred_on: string | null
+          payment_method: string | null
+          product: string | null
+          profit: number | null
+          quantity: number
+          revenue: number | null
+          row_number: number | null
+          selling_price: number | null
+        }
+        Insert: {
+          business_id: string
+          category?: string | null
+          cost_price?: number | null
+          created_at?: string
+          customer?: string | null
+          dataset_id: string
+          id?: string
+          location?: string | null
+          occurred_on?: string | null
+          payment_method?: string | null
+          product?: string | null
+          profit?: number | null
+          quantity?: number
+          revenue?: number | null
+          row_number?: number | null
+          selling_price?: number | null
+        }
+        Update: {
+          business_id?: string
+          category?: string | null
+          cost_price?: number | null
+          created_at?: string
+          customer?: string | null
+          dataset_id?: string
+          id?: string
+          location?: string | null
+          occurred_on?: string | null
+          payment_method?: string | null
+          product?: string | null
+          profit?: number | null
+          quantity?: number
+          revenue?: number | null
+          row_number?: number | null
+          selling_price?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_dataset_id_fkey"
+            columns: ["dataset_id"]
+            isOneToOne: false
+            referencedRelation: "datasets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_business_role: {
+        Args: {
+          _business_id: string
+          _roles: Database["public"]["Enums"]["business_role"][]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_business_member: {
+        Args: { _business_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      business_role: "owner" | "admin" | "viewer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +567,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      business_role: ["owner", "admin", "viewer"],
+    },
   },
 } as const
