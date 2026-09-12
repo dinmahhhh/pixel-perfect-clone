@@ -1,29 +1,26 @@
 import { cn } from "@/lib/utils";
+import logoAsset from "@/assets/avenlytics-logo.png.asset.json";
 
+/**
+ * Brand lockup. On navy surfaces (`inverted`) the wordmark sits on a light
+ * plate so the navy letterforms stay legible.
+ */
 export function Logo({ className, inverted = false }: { className?: string; inverted?: boolean }) {
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
-      <span className="flex size-8 items-center justify-center rounded-lg bg-primary">
-        <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">
-          <path
-            d="M4 19 12 5l8 14"
-            fill="none"
-            stroke="currentColor"
-            className="text-navy"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-      <span
-        className={cn(
-          "text-lg font-semibold tracking-tight",
-          inverted ? "text-navy-foreground" : "text-navy",
-        )}
-      >
-        Avenlytics
-      </span>
+    <span
+      className={cn(
+        "inline-flex items-center",
+        inverted && "rounded-lg bg-background px-3 py-2",
+        className,
+      )}
+    >
+      <img
+        src={logoAsset.url}
+        alt="Avenlytics"
+        width={1920}
+        height={640}
+        className="h-9 w-auto"
+      />
     </span>
   );
 }
